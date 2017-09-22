@@ -1,0 +1,25 @@
+{
+  "name": "quepro",
+  "version": "1.0.0",
+  "description": "queue management system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*", 
+    "body-parser": "*", 
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "passport": "*", 
+    "passport-http": "*",
+    "passport-local": "*"
+  }
+}
