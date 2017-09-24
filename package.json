@@ -18,10 +18,10 @@
     "express-handlebars": "*",
     "express-messages": "*",
     "express-session": "*",
-    "express-validator": "*",
+    "express-validator": "^4.2.1",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "request":"*"
+    "request": "^2.82.0"
   }
 }
