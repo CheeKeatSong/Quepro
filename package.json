@@ -21,6 +21,7 @@
     "express-validator": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "request":"*"
   }
 }
