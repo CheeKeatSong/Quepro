@@ -1,16 +1,17 @@
 {
-  "name": "quepro",
+  "name": "loginapp",
   "version": "1.0.0",
-  "description": "queue management system",
+  "description": "Simple authentication system",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Brad Traversy",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "*", 
-    "body-parser": "*", 
+    "bcryptjs": "*",
+    "body-parser": "*",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
     "express": "*",
@@ -18,7 +19,7 @@
     "express-messages": "*",
     "express-session": "*",
     "express-validator": "*",
-    "passport": "*", 
+    "passport": "*",
     "passport-http": "*",
     "passport-local": "*"
   }
