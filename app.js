@@ -1,16 +1,16 @@
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
-var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+// var path = require('path');
+// var cookieParser = require('cookie-parser');
+// var bodyParser = require('body-parser');
+// var exphbs = require('express-handlebars');
+// var expressValidator = require('express-validator');
+// var flash = require('connect-flash');
+// var session = require('express-session');
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local').Strategy;
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+// var routes = require('./routes/index');
+// var users = require('./routes/users');
 
 // Init App
 var app = express();
@@ -86,6 +86,7 @@ app.get('/', function(req, res) {
 // Set Port
 // app.set('port', (process.env.PORT || 8080));
 
-app.listen(app.get('port'), function(){
+
+app.listen(port, function() {
 	console.log('Server started on port '+ app.get('port'));
 });
