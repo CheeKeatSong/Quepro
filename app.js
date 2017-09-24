@@ -20,8 +20,8 @@ var app = express();
 var port = process.env.PORT || 8080;
 
 // View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
+// app.set('views', path.join(__dirname, 'views'));
+// app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
 
 // // BodyParser Middleware
@@ -73,9 +73,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   next();
 // });
 
+// set the home page route
+app.get('/', function(req, res) {
 
-app.use('/', routes);
-app.use('/users', users);
+  // ejs render automatically looks in the views folder
+  res.render('login');
+});
+
+// app.use('/', routes);
+// app.use('/users', users);
 
 // Set Port
 // app.set('port', (process.env.PORT || 8080));
