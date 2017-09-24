@@ -1,13 +1,13 @@
 {
   "name": "quepro",
   "version": "1.0.0",
-  "description": "Simple authentication system",
+  "description": "Queue management system",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brad Traversy",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "*",
