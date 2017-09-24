@@ -17,7 +17,7 @@ var app = express();
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
+// var port = process.env.PORT || 8080;
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -79,10 +79,11 @@ app.use('/', routes);
 app.use('/users', users);
 
 // Set Port
-// app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || 3000));
 
-
-
+app.listen(app.get('port'), function(){
+  console.log('Server started on port '+app.get('port'));
+});
 
 // // set the home page route
 // app.get('/', function(req, res) {
@@ -91,6 +92,6 @@ app.use('/users', users);
 //   res.render('login');
 // });
 
-app.listen(port, function() {
-	console.log('Server started on port '+ app.get('port'));
-});
+// app.listen(port, function() {
+// 	console.log('Server started on port '+ app.get('port'));
+// });
