@@ -25,13 +25,13 @@ router.post('/register', function(req, res){
 	var mobileNumber = req.body.mobileNumber;
 
 	// Validation - Error on heroku
-	// req.checkBody('firstName', 'First name is required').notEmpty();
-	// req.checkBody('lastName', 'Last name is required').notEmpty();
-	// req.checkBody('email', 'Email is required').notEmpty();
-	// req.checkBody('email', 'Email is not valid').isEmail();
-	// req.checkBody('password', 'Password is required').notEmpty();
-	// req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-	// req.checkBody('mobileNumber', 'Mobile Number is required').notEmpty();
+	req.checkBody('firstName', 'First name is required').notEmpty();
+	req.checkBody('lastName', 'Last name is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+	req.checkBody('mobileNumber', 'Mobile Number is required').notEmpty();
 
 	var errors = req.validationErrors();
 
