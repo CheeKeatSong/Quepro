@@ -89,6 +89,10 @@ router.post('/account-verification', function(req, res){
 
 	var errors = req.validationErrors();
 
+	registrationId = Registration.retrieveId();
+
+	console.log(verificationCode + registrationId);
+
 	if(errors){
 		res.render('account-verification',{
 			errors:errors
