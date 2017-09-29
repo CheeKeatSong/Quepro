@@ -93,7 +93,7 @@ router.post('/account-verification', function(req, res){
 
 	registrationId = Registration.retrieveId();
 
-	console.log(verificationCode + registrationId);
+	console.log(verificationCode\nregistrationId);
 
 	if(errors){
 		res.render('account-verification',{
@@ -106,7 +106,7 @@ router.post('/account-verification', function(req, res){
 			"https://rest-quepro.herokuapp.com/api/accountVerification",
 			{ json: { id : registrationId, verificationCode: verificationCode } },
 			function (error, response, body) {
-				console.log(body);
+				console.log(error, response, body);
 				if (!error && response.statusCode == 200) {
 					console.log(error, response, body);
                     // insert data in users DB officially
