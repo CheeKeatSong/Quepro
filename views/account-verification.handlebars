@@ -1,0 +1,12 @@
+	<h2 class="page-header">Verify Account</h2>
+  <form method="post" action="/users/account-verification">
+    <div class="form-group">
+      <label>Account Verification Code</label>
+      <input type="text" class="form-control" name="verification-code" placeholder="Verification Code">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+
+  <form method="post" action="/users/send-verification-code">
+   <button type="submit" class="btn btn-default">Resend verification code</button>
+ </form>

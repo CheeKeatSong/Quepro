@@ -2,8 +2,15 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var request = require('request');
 
 var Registration = require('../models/registration.js');
+
+var registrationId = 0;
+var verificationRequestCounter = 0;
+
+// var registrationId = ;
+// var verificationRequestCounter = 0;
 
 // Register
 router.get('/register', function(req, res){
@@ -40,17 +47,103 @@ router.post('/register', function(req, res){
 			errors:errors
 		});
 	} else {
-		var newRegistration = new Registration(firstName, lastName, email, password, mobileNumber);
+
+		var newRegistration = new Registration(firstName,lastName,email,password,mobileNumber);
+
+		// newRegistration.setFirstName = firstName;
+		// newRegistration.setLastName = lastName;
+		// newRegistration.setEmail = email;
+		// newRegistration.setPassword = password;
+		// newRegistration.setMobileNumber = mobileNumber;
 
 		Registration.createUser(newRegistration, function(err, user){
 			if(err) throw err;
 			console.log(user);
 		});
 
-		req.flash('success_msg', 'Retrieve verification code from the SMS sent to your mobile number to activate your account.');
+		res.redirect('/users/account-verification');
 
-		res.redirect('/users/login');
+		registrationId = Registration.retrieveId();
+		request.get(
+			"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + registrationId,
+			function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+					console.log(body)
+				}
+			}
+			);
 	}
+});
+
+// Account Verification
+router.get('/account-verification', function(req, res){
+	res.render('account-verification');
+});
+
+// Account verification submit
+router.post('/account-verification', function(req, res){
+
+	var verificationCode = req.body.verificationCode;
+	// Validation - Error on heroku
+	req.checkBody('verificationCode', 'Verification code is required').notEmpty();
+
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('account-verification',{
+			errors:errors
+		});
+	} else {
+		// match verification code
+		method = "POST";
+		request.post(
+			url,
+			{ json: { id : registrationId, verificationCode: verificationCode } },
+			function (error, response, body) {
+				if (!error && response.statusCode == 200) {
+                    // insert data in users DB officially
+                    method = "POST";
+                    request.post(
+                    	url,
+                    	{ json: body },
+                    	function (error, response, body) {
+                    		if (!error && response.statusCode == 200) {
+                    			req.flash('success_msg', 'Your account is verified. Please login!');
+                    			res.redirect('/users/login');
+                    		}else{
+                    			req.flash('error_msg', error);	
+                    		}
+                    	}
+                    	);
+                }else{
+                	req.flash('error_msg', 'Verification code does not matched!');
+                }
+            }
+            );
+	}
+});
+
+// Send verification code
+router.post('/send-verification-code', function(req, res){
+
+	verificationRequestCounter++;
+	registrationId = Registration.retrieveId();
+
+	if (verificationRequestCounter < 4){
+		var url = "https://rest-quepro.herokuapp.com/api/resendSMSCode/" + registrationId;
+	}else{
+		var url = "https://rest-quepro.herokuapp.com/api/resendEmailCode/" + registrationId;
+	}
+	method = "GET";
+
+	request.get(
+		url,
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log(body)
+			}
+		}
+		);
 });
 
 passport.use(new LocalStrategy(

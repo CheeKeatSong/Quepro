@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs');
 // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var request = require('request');
 
+var id;
 // // User Schema
 // var UserSchema = mongoose.Schema({
 // 	username: {
@@ -119,6 +120,7 @@ method.setMobileNumber = function(mobileNumber){
 module.exports = Registration;
 
 module.exports.createUser = function(newUser, callback){
+
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(newUser.password, salt, function(err, hash) {
 			newUser.password = hash;
@@ -127,13 +129,17 @@ module.exports.createUser = function(newUser, callback){
 				{ json: { firstName : newUser.firstName, lastName : newUser.lastName, email : newUser.email, password : newUser.password, mobileNumber : newUser.mobileNumber } },
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
-						console.log(body)
+						console.log(body.data.userid);  
+						id = body.data.userid;
 					}
 				}
 			);
 		});
 	});
+}
 
+module.exports.retrieveId = function(){
+    return id;
 }
 
 // module.exports.comparePassword = function(candidatePassword, hash, callback){
