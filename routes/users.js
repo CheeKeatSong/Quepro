@@ -61,8 +61,6 @@ router.post('/register', function(req, res){
 			console.log(user);
 		});
 
-		res.redirect('/users/account-verification');
-
 		registrationId = Registration.retrieveId();
 		request.get(
 			"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + registrationId,
@@ -71,7 +69,8 @@ router.post('/register', function(req, res){
 					console.log(body)
 				}
 			}
-			);
+		);
+		res.redirect('/users/account-verification');	
 	}
 });
 
@@ -101,6 +100,7 @@ router.post('/account-verification', function(req, res){
 			{ json: { id : registrationId, verificationCode: verificationCode } },
 			function (error, response, body) {
 				if (!error && response.statusCode == 200) {
+					console.log(body)
                     // insert data in users DB officially
                     method = "POST";
                     request.post(
@@ -111,11 +111,13 @@ router.post('/account-verification', function(req, res){
                     			req.flash('success_msg', 'Your account is verified. Please login!');
                     			res.redirect('/users/login');
                     		}else{
+                    			console.log(error)
                     			req.flash('error_msg', error);	
                     		}
                     	}
                     	);
                 }else{
+                	console.log(error)
                 	req.flash('error_msg', 'Verification code does not matched!');
                 }
             }
