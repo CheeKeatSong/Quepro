@@ -97,14 +97,14 @@ router.post('/account-verification', function(req, res){
 		// match verification code
 		method = "POST";
 		request.post(
-			url,
+			"https://rest-quepro.herokuapp.com/api/accountVerification",
 			{ json: { id : registrationId, verificationCode: verificationCode } },
 			function (error, response, body) {
 				if (!error && response.statusCode == 200) {
                     // insert data in users DB officially
                     method = "POST";
                     request.post(
-                    	url,
+                    	"https://rest-quepro.herokuapp.com/api/createUserAccount",
                     	{ json: body },
                     	function (error, response, body) {
                     		if (!error && response.statusCode == 200) {
