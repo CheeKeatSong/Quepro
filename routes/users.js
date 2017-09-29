@@ -61,15 +61,6 @@ router.post('/register', function(req, res){
 			console.log(user);
 		});
 
-		registrationId = Registration.retrieveId();
-		request.get(
-			"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + registrationId,
-			function (error, response, body) {
-				if (!error && response.statusCode == 200) {
-					console.log(body)
-				}
-			}
-		);
 		res.redirect('/users/account-verification');	
 	}
 });
@@ -77,6 +68,16 @@ router.post('/register', function(req, res){
 // Account Verification
 router.get('/account-verification', function(req, res){
 	res.render('account-verification');
+
+	registrationId = Registration.retrieveId();
+	request.get(
+		"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + registrationId,
+		function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				console.log(body)
+			}
+		}
+	);
 });
 
 // Account verification submit
