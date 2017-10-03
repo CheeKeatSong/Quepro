@@ -4,55 +4,11 @@ var bcrypt = require('bcryptjs');
 // var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var request = require('request');
 
-var id;
-// // User Schema
-// var UserSchema = mongoose.Schema({
-// 	username: {
-// 		type: String,
-// 		index:true
-// 	},
-// 	password: {
-// 		type: String
-// 	},
-// 	email: {
-// 		type: String
-// 	},
-// 	name: {
-// 		type: String
-// 	}
-// });
-
-// var User = module.exports = mongoose.model('User', UserSchema);
-
-// module.exports.createUser = function(newUser, callback){
-// 	bcrypt.genSalt(10, function(err, salt) {
-// 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
-// 	        newUser.password = hash;
-// 	        newUser.save(callback);
-// 	    });
-// 	});
-// }
-
-// module.exports.getUserByUsername = function(username, callback){
-// 	var query = {username: username};
-// 	User.findOne(query, callback);
-// }
-
-// module.exports.getUserById = function(id, callback){
-// 	User.findById(id, callback);
-// }
-
-// module.exports.comparePassword = function(candidatePassword, hash, callback){
-// 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-//     	if(err) throw err;
-//     	callback(null, isMatch);
-// 	});
-// }
-
+var userId;
 var method = Registration.prototype;
 
 function Registration(firstName, lastName, email, password, mobileNumber, verificationCode){
-   // this.userId = userId;
+   this.userId = userId;
    this.firstName = firstName;
    this.lastName = lastName;
    this.email = email;
@@ -130,21 +86,31 @@ module.exports.createUser = function(newUser, callback){
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
 						console.log(body.data.userid);  
-						id = body.data.userid;
+						userId = body.data.userid;
+
+						request.get(
+							"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + id,
+							function (error, response, body) {
+								if (!error && response.statusCode == 200) {
+									console.log(body)
+								}
+							}
+							);
+
 					}
 				}
-			);
+				);
 		});
 	});
 }
 
 module.exports.retrieveId = function(){
-    return id;
+	return userId;
 }
 
-// module.exports.comparePassword = function(candidatePassword, hash, callback){
-// 	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-//     	if(err) throw err;
-//     	callback(null, isMatch);
-// 	});
-// }
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	callback(null, isMatch);
+	});
+}
