@@ -1,29 +1,29 @@
-// var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-// var jQuery = require('jquery');
-// var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var request = require('request');
 
-var userId;
 var method = Registration.prototype;
 
+var userId = 0, firstName, lastName, email, password, mobileNumber;
+
+var verificationRequestCounter = 0;
+
 function Registration(firstName, lastName, email, password, mobileNumber, verificationCode){
-   this.userId = userId;
-   this.firstName = firstName;
-   this.lastName = lastName;
-   this.email = email;
-   this.password = password;
-   this.mobileNumber = mobileNumber;
+	this.userId = userId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.email = email;
+	this.password = password;
+	this.mobileNumber = mobileNumber;
    // this.verificationCode = verificationCode;
 }
 
-// method.getUserId = function(){
-//    return this.userId;
-// }
+method.getUserId = function(){
+	return this.userId;
+}
 
-// method.setUserId = function(userId){
-//    this.userId = userId;
-// }
+method.setUserId = function(userId){
+	this.userId = userId;
+}
 
 method.getFirstName = function(){
 	return this.firstName;
@@ -76,7 +76,6 @@ method.setMobileNumber = function(mobileNumber){
 module.exports = Registration;
 
 module.exports.createUser = function(newUser, callback){
-
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(newUser.password, salt, function(err, hash) {
 			newUser.password = hash;
@@ -85,18 +84,11 @@ module.exports.createUser = function(newUser, callback){
 				{ json: { firstName : newUser.firstName, lastName : newUser.lastName, email : newUser.email, password : newUser.password, mobileNumber : newUser.mobileNumber } },
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
-						console.log(body.data.userid);  
 						userId = body.data.userid;
-
-						request.get(
-							"https://rest-quepro.herokuapp.com/api/resendSMSCode/" + id,
-							function (error, response, body) {
-								if (!error && response.statusCode == 200) {
-									console.log(body)
-								}
-							}
-							);
-
+						callback(true);
+					}
+					else{
+						callback(false, 'Registration Error');
 					}
 				}
 				);
@@ -104,13 +96,72 @@ module.exports.createUser = function(newUser, callback){
 	});
 }
 
-module.exports.retrieveId = function(){
-	return userId;
-}
+module.exports.accountVerification = function(verificationCode, callback){
+			// match verification code
+			request.post(
+				"https://rest-quepro.herokuapp.com/api/accountVerification",
+				{ json: { id : userId, verificationcode: verificationCode } },
+				function (error, response, body) {
+					if (!error && response.statusCode == 200) {
+                    // insert data in users DB officially
+                    method = "POST";
+                    request.post(
+                    	"https://rest-quepro.herokuapp.com/api/createUserAccount",
+                    	{ json: body.data },
+                    	function (error, response, body) {
+                    		if (!error && response.statusCode == 200) {
+                    			callback(true,'Your account is verified. Please login!');
+                    		}else{
+                    			console.log(error)
+                    			callback(false, error);
+                    		}
+                    	}
+                    	);
+                }else{
+                	callback(false, body.message);
+                	console.log(body.message);
+                }
+            }
+            );
+		}
 
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-    	if(err) throw err;
-    	callback(null, isMatch);
-	});
-}
+		module.exports.registrationValidation = function(email, mobileNumber, callback){
+			request.post(
+				"https://rest-quepro.herokuapp.com/api/registrationValidation",
+				{ json: { email : email, mobileNumber: mobileNumber } },
+				function (error, response, body) {
+					console.log(body)
+					if (!error && response.statusCode == 200) {
+						verificationRequestCounter = 0;
+						callback(true);   
+					}else{
+						callback(false, body.message);   
+					}
+				}
+				);
+		}
+
+		module.exports.sendVerificationCode = function(callback){
+			if (verificationRequestCounter < 3){
+				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationSMSCode/" + userId;
+			}else{
+				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationEmailCode/" + userId;
+			}
+			request.get(
+				url,
+				function (error, response, body) {
+					if (!error && response.statusCode == 200) {
+						console.log(body);
+						if (verificationRequestCounter < 3){
+							callback(true, 'Verification code is SMS to your mobile number');
+						}else{
+							callback(true, 'Verification code is sent to your email');
+						}
+						verificationRequestCounter++;
+					}else{
+						console.log(error);
+						callback(false, 'Verification code request error');
+					}
+				}
+				);
+		}
