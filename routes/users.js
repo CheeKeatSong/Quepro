@@ -11,6 +11,7 @@ var Registration = require('../models/registration.js');
 var Users = require('../models/users.js');
 
 var newUser = new Users();
+var newRegistration = new Registration();
 
 // Register
 router.get('/register', function(req, res){
@@ -170,10 +171,11 @@ router.post('/register', function(req, res){
 
 	Registration.registrationValidation(email,mobileNumber, function(status, message){
 		if (status && !errors){
-			var newRegistration = new Registration(firstName,lastName,email,password,mobileNumber);
-			Registration.createUser(newRegistration, function(status, message){
+			newRegistration = new Registration(firstName,lastName,email,password,mobileNumber);
+			Registration.createUser(newRegistration, function(status, message, id){
 				if(status){
-					Registration.sendVerificationCode(function(status, message) {
+					newRegistration.setUserId(id);
+					Registration.sendVerificationCode(newRegistration.getUserId(), function(status, message) {
 						if (status){
 							req.flash('success_msg', message);
 							res.redirect('/users/account-verification');	
@@ -218,7 +220,7 @@ router.post('/account-verification', function(req, res){
 			errors:errors
 		});
 	} else {
-		Registration.accountVerification(verificationCode, function(status, message){
+		Registration.accountVerification(newRegistration.getUserId(), verificationCode, function(status, message){
 			if (status){
 				req.flash('success_msg', message);
 				res.redirect('/users/login');	

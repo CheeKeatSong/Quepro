@@ -3,9 +3,11 @@ var request = require('request');
 
 var method = Registration.prototype;
 
-var userId = 0, firstName, lastName, email, password, mobileNumber;
+var userId, firstName, lastName, email, password, mobileNumber;
 
 var verificationRequestCounter = 0;
+
+function Registration() {}
 
 function Registration(firstName, lastName, email, password, mobileNumber, verificationCode){
 	this.userId = userId;
@@ -84,8 +86,7 @@ module.exports.createUser = function(newUser, callback){
 				{ json: { firstName : newUser.firstName, lastName : newUser.lastName, email : newUser.email, password : newUser.password, mobileNumber : newUser.mobileNumber } },
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
-						userId = body.data.userid;
-						callback(true);
+						callback(true, 'Registration Success!', body.data.userid);
 					}
 					else{
 						callback(false, 'Registration Error');
@@ -96,11 +97,11 @@ module.exports.createUser = function(newUser, callback){
 	});
 }
 
-module.exports.accountVerification = function(verificationCode, callback){
+module.exports.accountVerification = function(id, verificationCode, callback){
 			// match verification code
 			request.post(
 				"https://rest-quepro.herokuapp.com/api/accountVerification",
-				{ json: { id : userId, verificationcode: verificationCode } },
+				{ json: { id : id, verificationcode: verificationCode } },
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
                     // insert data in users DB officially
@@ -141,17 +142,16 @@ module.exports.accountVerification = function(verificationCode, callback){
 				);
 		}
 
-		module.exports.sendVerificationCode = function(callback){
+		module.exports.sendVerificationCode = function(id, callback){
 			if (verificationRequestCounter < 3){
-				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationSMSCode/" + userId;
+				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationSMSCode/" + id;
 			}else{
-				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationEmailCode/" + userId;
+				var url = "https://rest-quepro.herokuapp.com/api/sendAccountVerificationEmailCode/" + id;
 			}
 			request.get(
 				url,
 				function (error, response, body) {
 					if (!error && response.statusCode == 200) {
-						console.log(body);
 						if (verificationRequestCounter < 3){
 							callback(true, 'Verification code is SMS to your mobile number');
 						}else{
@@ -159,7 +159,6 @@ module.exports.accountVerification = function(verificationCode, callback){
 						}
 						verificationRequestCounter++;
 					}else{
-						console.log(error);
 						callback(false, 'Verification code request error');
 					}
 				}
