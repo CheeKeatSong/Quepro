@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Select Service</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Slick -->
+    <link rel="stylesheet" type="text/css" href="../slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="../slick/slick-theme.css"/>
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" type="text/css" href="../css/selectService.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<header role="banner" class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button data-toggle="collapse-side" data-target=".side-collapse" data-target-2=".side-collapse-container" type="button" class="navbar-toggle pull-left"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+        </div>
+        <div class="navbar-inverse side-collapse in">
+          <nav role="navigation" class="navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#Home">Favourite</a></li>
+              <li><a href="#users">Que</a></li>
+              <li><a href="http://placesforlove.com">Track</a></li>
+              <li><a href="#users">Profile</a></li>
+              <li><a href="http://placesforlove.com">Settings</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+	</header>
+	<!-- Navbar Finish -->
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<h3>Branch name is taken from the db</h3>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<h3>Branch location is taken from the db</h3>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="favourite-icon">
+				<a href="#"><img src="../icons/star.png" alt="favourite"></a>
+			</div>								
+		</div>
+		<div id="service-label">
+			<h3>Select your service: </h3>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="container">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<a href="#"><h4>Service 1</h4></a>
+					</div>	
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<div class="waiting-time center-block">
+							<h6 id="waiting-time-label">waiting time based on calc.</h6>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="container">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<a href="#"><h4>Service 2</h4></a>
+					</div>	
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<div class="waiting-time center-block">
+							<h6 id="waiting-time-label">waiting time based on calc.</h6>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="container">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<a href="#"><h4>Service 3</h4></a>
+					</div>	
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<div class="waiting-time center-block">
+							<h6 id="waiting-time-label">waiting time based on calc.</h6>
+						</div>
+					</div>				
+				</div>
+			</div>
+		</div>
+
+		<!-- Ads -->
+		<div class="ads-container">
+			<h2 class="text-center">Ads</h2>
+		</div>
+		  <div class="ads">
+		    <div><img src="../ads/img1.jpg"></div>
+		    <div><img src="../ads/img2.jpg"></div>
+		    <div><img src="../ads/img3.jpg"></div>
+		  </div>
+		  <!-- Ads finish -->
+	</div>
+	
+
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+     <!-- Slick Slider -->
+    <script type="text/javascript" src="../slick/slick.min.js"></script>
+
+    <script type="text/javascript" src="../js/navbar.js"></script>
+    <script type="text/javascript">
+	     $(document).ready(function(){
+	      $('.ads').slick({
+	          dots: true,
+	          autoplay: true,
+ 			  autoplaySpeed: 500,
+			  slidesToShow: 1,
+			  adaptiveHeight: true
+	      });
+	    });
+    </script>
+</body>
+</html>

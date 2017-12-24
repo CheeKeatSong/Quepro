@@ -1,0 +1,75 @@
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    margin: 0;
+    padding: 0;
+}
+
+
+#wrapper{
+	margin-top: 50px;
+}
+
+.title{
+	text-align: center;
+}
+
+#register-form{
+	margin: 20px auto 0;
+	padding: 20px;
+	background-color: white;
+}
+@media screen and (min-width: 992px){
+  #register-form{
+  	width: 50%;
+  	padding: 20px;
+
+  }
+  
+}
+
+.other-buttons{
+	margin-top: 10px;
+}
+
+.form-register .form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-register {
+    /*background-color: #4d90fe; */
+    background-color: rgb(104, 145, 162);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 5px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+.btn.btn-register:hover,
+.btn.btn-register:active,
+.btn.btn-register:focus {
+    background-color: rgb(12, 97, 33);
+}
+
+.already-member {
+    color: rgb(104, 145, 162);
+}
+
+.already-member:hover,
+.already-member:active,
+.already-member:focus{
+    color: rgb(12, 97, 33);
+}
