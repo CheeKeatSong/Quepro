@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "node test.js"
+    "test": "node test.js "
   },
   "author": "",
   "license": "ISC",
@@ -27,5 +27,14 @@
     "passport-http": "*",
     "passport-local": "*",
     "request": "^2.82.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://CKSong@bitbucket.org/CKSong/quepro.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
 }
