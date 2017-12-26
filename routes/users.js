@@ -5,7 +5,7 @@ router.use(expressValidator());
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
-var emailExistence = require('email-existence');
+// var emailExistence = require('email-existence');
 
 var Registration = require('../models/registration.js');
 var Users = require('../models/users.js');
