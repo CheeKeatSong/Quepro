@@ -235,7 +235,7 @@ router.post('/account-verification', function(req, res){
 
 // Send verification code
 router.post('/send-account-verification-code', function(req, res){
-	Registration.sendVerificationCode(function(status, message) {
+	Registration.sendVerificationCode(newRegistration.getUserId(), function(status, message) {
 		if (status){
 			req.flash('success_msg', message);
 			res.redirect('/users/account-verification');	

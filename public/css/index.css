@@ -5,6 +5,48 @@ body, html {
     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 }
 
+/*Navbar*/
+body {
+  padding-top: 50px;
+  /*position: relative;*/
+}
+
+pre {
+  tab-size: 8;
+}
+
+
+@media screen and (max-width: 768px) {
+  .side-collapse-container{
+      width:100%;
+      position:relative;
+      left:0;
+      transition:left .4s;
+  }
+  .side-collapse-container.out{
+      left:200px;
+  }
+  .side-collapse {
+      top:50px;
+      bottom:0;
+      left:0;
+      width:200px;
+      position:fixed;
+      overflow:hidden;
+      transition:width .4s;
+  }
+  .side-collapse.in {
+      width:0;
+  }
+}
+
+@media screen and (min-width: 992px){
+    .navbar-nav{
+        float: right;
+    }
+}
+/*Navbar Finish*/
+
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
@@ -22,7 +64,7 @@ body, html {
 /*
  * Card component
  */
-.card {
+ .card {
     background-color: #F7F7F7;
     /* just in case there no content*/
     padding: 20px 25px 30px;
@@ -50,7 +92,7 @@ body, html {
 /*
  * Form styles
  */
-.profile-name-card {
+ .profile-name-card {
     font-size: 16px;
     font-weight: bold;
     text-align: center;
