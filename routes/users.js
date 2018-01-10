@@ -1,3 +1,4 @@
+// Node Modules Dependencies
 var express = require('express');
 var router = express.Router();
 var expressValidator = require('express-validator');
@@ -7,6 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
 // var emailExistence = require('email-existence');
 
+// Data Models
 var Registration = require('../models/registration.js');
 var Users = require('../models/users.js');
 
@@ -295,6 +297,14 @@ router.get('/logout', function(req, res){
 	req.logout();
 	req.flash('success_msg', 'You are logged out');
 	res.redirect('/users/login');
+});
+
+router.get('/que', function(req, res){
+	res.render('que');
+});
+
+router.get('/track', function(req, res){
+	res.render('track');
 });
 
 module.exports = router;

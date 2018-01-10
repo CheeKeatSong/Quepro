@@ -3,18 +3,13 @@ body, html {
     height: 100%;
     background-repeat: no-repeat;
     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    padding-top: 50px;
 }
 
 /*Navbar*/
-body {
-  padding-top: 50px;
-  /*position: relative;*/
-}
-
 pre {
   tab-size: 8;
 }
-
 
 @media screen and (max-width: 768px) {
   .side-collapse-container{
