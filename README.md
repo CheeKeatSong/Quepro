@@ -6,9 +6,9 @@ A MEN Stack responsive web app designed to provide the flexibility to use number
 
 * **Authentication with devices**. The web app send verification code to device through email upon registration.
 
-* **Numbering System**. 
+* **Numbering System**
 
-* **Online Number Tracking**. 
+* **Online Number Tracking**
 
 ## Note
 
