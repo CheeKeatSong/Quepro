@@ -1,8 +1,15 @@
-user registration field validation
-- locale of mobile phone number validation needs to be in Brunei
+# Online Bank Reception Numbering System - Client Side
 
-email-existence - need to test with online server IP
-local does not work - MX server does not accept local IP
+A MEN Stack responsive web app designed to provide the flexibility to use numbering system online.
 
-registration - nationality
-why is this required? it is located in Brunei only
+## Features
+
+* **Authentication with devices**. The web app send verification code to device through email upon registration.
+
+* **Numbering System**. 
+
+* **Online Number Tracking**. 
+
+## Note
+
+Project is abandoned.
