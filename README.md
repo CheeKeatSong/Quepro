@@ -16,4 +16,6 @@ A MEN Stack responsive web app designed to provide the flexibility to use number
 
 ## Note
 
+Last update: October 2017
+
 Project is abandoned.
