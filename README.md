@@ -12,7 +12,7 @@ A MEN Stack responsive web app designed to provide the flexibility to use number
 
 ## Tools
 
-1. [mailgun](https://www.mailgun.com/)
+1. [Mailgun](https://www.mailgun.com/). Email API
 
 ## Note
 
